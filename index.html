@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grimhold — концепт и статус</title>
+<meta name="description" content="Браузерная MMORPG от первого лица: подземелья с выносом добычи. О чём игра, как она выглядит и на чём мы сейчас стоим.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+
+<style>
+  /* Страница про мрачную игру и намеренно однотемная: светлый вариант ей
+     противопоказан. Все цвета заданы явно. Палитра взята из самой игры:
+     ночная синь, янтарь фонаря, огонь очага. */
+  :root {
+    --night: #0f131b;
+    --deep: #141d30;
+    --panel: #181f2b;
+    --edge: #262f3f;
+    --text: #dfe4ec;
+    --dim: #939dad;
+    --amber: #e0913f;
+    --ember: #ff7a22;
+    --moss: #6f8a52;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--text);
+    font-family: 'Alegreya Sans', system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    line-height: 1.62;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: 900px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  p { margin: 0; max-width: 64ch; }
+
+  a { color: var(--amber); }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0;
+  }
+
+  h2 {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(28px, 4.4vw, 38px);
+    line-height: 1.14;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: 21px;
+    margin: 0;
+  }
+
+  /* ---------- заглавие ---------- */
+
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    border-bottom: 1px solid var(--edge);
+  }
+
+  .hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+  }
+
+  /* Единственный приём на всю страницу: мягкое световое пятно, как от
+     факела на стене, — оно же вытягивает заглавие из кадра. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(70% 60% at 18% 76%, rgba(224, 145, 63, 0.22), transparent 68%),
+      linear-gradient(to top, var(--night) 3%, rgba(15, 19, 27, 0.86) 40%, rgba(15, 19, 27, 0.3) 80%);
+  }
+
+  .hero .wrap {
+    position: relative;
+    z-index: 1;
+    padding-block: 0 46px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  h1 {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(52px, 12vw, 92px);
+    line-height: 0.96;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  .tagline {
+    font-size: clamp(19px, 2.6vw, 23px);
+    max-width: 32ch;
+  }
+
+  .status-line {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--dim);
+  }
+
+  .status-line b { color: var(--amber); font-weight: 500; }
+
+  /* ---------- разделы ---------- */
+
+  section { padding-block: 62px; }
+
+  section > .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .lead { font-size: 21px; }
+
+  .dark { background: var(--deep); border-block: 1px solid var(--edge); }
+
+  /* ---------- вылазка: главный раздел ---------- */
+
+  .beat {
+    border-left: 2px solid var(--ember);
+    padding: 4px 0 4px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .beat p { font-size: 20px; }
+
+  .rules { display: flex; flex-direction: column; gap: 20px; }
+
+  .rule { display: flex; flex-direction: column; gap: 4px; }
+
+  .rule p { color: var(--dim); }
+
+  /* ---------- пары «раса — ремесло» ---------- */
+
+  .craft {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: var(--edge);
+    border: 1px solid var(--edge);
+  }
+
+  .craft div {
+    background: var(--panel);
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .craft b {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
+  .craft span { font-size: 15.5px; color: var(--dim); }
+
+  /* ---------- галерея ---------- */
+
+  figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+
+  figure img { border: 1px solid var(--edge); width: 100%; }
+
+  figcaption { font-size: 15px; color: var(--dim); }
+
+  figcaption b { color: var(--text); font-weight: 500; }
+
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
+  }
+
+  .gallery { display: flex; flex-direction: column; gap: 44px; }
+
+  /* ---------- пайплайн: шаги ---------- */
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--edge);
+    border: 1px solid var(--edge);
+  }
+
+  .steps div {
+    background: var(--panel);
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .steps b {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--amber);
+  }
+
+  .steps span { font-size: 15.5px; color: var(--dim); }
+
+  /* ---------- честно о стадии ---------- */
+
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+  }
+
+  .stage > div { display: flex; flex-direction: column; gap: 10px; }
+
+  .stage h3 { display: flex; align-items: baseline; gap: 9px; }
+
+  .stage i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--moss);
+  }
+
+  .stage .doing i { background: var(--amber); }
+  .stage .later i { background: #4b5568; }
+
+  .stage ul {
+    margin: 0;
+    padding-left: 19px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 16px;
+    color: var(--dim);
+  }
+
+  .stage li::marker { color: #4b5568; }
+
+  /* ---------- вехи ---------- */
+
+  .miles { display: flex; flex-direction: column; gap: 1px; background: var(--edge); border: 1px solid var(--edge); }
+
+  .mile {
+    background: var(--panel);
+    padding: 15px 18px;
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 4px 16px;
+    align-items: baseline;
+  }
+
+  .mile > b {
+    font-family: Marcellus, Georgia, serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--moss);
+  }
+
+  .mile.now > b { color: var(--amber); }
+  .mile.next > b { color: #4b5568; }
+
+  .mile strong { font-weight: 500; }
+
+  .mile span { grid-column: 2; font-size: 15.5px; color: var(--dim); }
+
+  footer {
+    padding-block: 50px 70px;
+    border-top: 1px solid var(--edge);
+  }
+
+  footer .wrap { display: flex; flex-direction: column; gap: 10px; }
+
+  footer p { color: var(--dim); font-size: 16px; }
+
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    .hero { min-height: 400px; }
+    section { padding-block: 48px; }
+    .gallery { gap: 34px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img src="arts/delve-lineup.webp" alt="Искатели приключений в освещённом факелами подземелье">
+  <div class="wrap">
+    <h1>Grimhold</h1>
+    <p class="tagline">Зашёл со своим снаряжением. Набрал добычи. Вышел живым — или потерял всё.</p>
+    <p class="status-line">Браузерная MMORPG от первого лица · <b>в разработке</b></p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">О чём игра</p>
+    <h2>Мрачное средневековье, в котором дороже всего стоит дорога назад</h2>
+    <p class="lead">Grimhold открывается вкладкой браузера — ставить ничего не надо. Ты видишь мир своими
+      глазами: руки, оружие, камень под ногами. Город внутри стен, дикие земли вокруг и люк
+      на площади, ведущий вниз.</p>
+    <p>Всё, что делается наверху, делается ради того, что случится внизу. Там куют оружие,
+      копят зелья и учатся драться. А потом спускаются — и ставят это на кон целиком.</p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Вылазка</p>
+    <h2>Игра — это один поход вниз</h2>
+
+    <div class="beat">
+      <p><b>Ты спускаешься в том, что надел.</b> Не в выданном снаряжении, не с чекпойнта —
+        в своём, заработанном. Если не вернёшься, надетое пропадёт насовсем.</p>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <h3>Внизу темно</h3>
+        <p>Видно на несколько шагов, дальше глухо. Постоянного огня в подземелье нет — свет
+          приносят с собой. Факел занимает руку, в которой мог быть щит, недолго горит и,
+          главное, выдаёт тебя: твой огонь видят все, кто смотрит в твою сторону. Видеть
+          и быть незаметным одновременно не выйдет.</p>
+      </div>
+      <div class="rule">
+        <h3>Внизу нет своих</h3>
+        <p>Правила города туда не дотягиваются: там все всем враги, и встреча с человеком
+          опаснее встречи с нежитью. Отличить спутника от чужака можно только по метке
+          отряда — а решать, драться или разойтись, приходится за секунду.</p>
+      </div>
+      <div class="rule">
+        <h3>Добычу надо унести руками</h3>
+        <p>Ничего не падает в рюкзак само. Сундук стоит вскрыть, и пока идёт работа, ты
+          стоишь спиной к залу — уязвим и слышен. С убитого остаётся мешок на полу: подойди,
+          открой, реши, что влезет. Место и вес конечны, и «взять это или то» — главный
+          вопрос всей вылазки.</p>
+      </div>
+      <div class="rule">
+        <h3>Выход открывает не таймер, а бой</h3>
+        <p>На дне ждёт хозяин глубины, и пока он жив, порталы заперты — никому, включая тех,
+          кто уже набрал полные карманы и хочет уйти. Его смерть открывает выход <em>всем
+          сразу и ненадолго</em>, и весь забег получает один и тот же сигнал. Дальше — гонка
+          к одним и тем же дверям. Опоздавшему остаётся смерть.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Почему это работает</p>
+    <h2>Ветеран сильнее новичка — но не настолько, чтобы того не стоило встречать</h2>
+    <p>Общего уровня персонажа в игре нет. Растут навыки и вещи, а разрыв между тем, кто играет
+      неделю, и тем, кто играет полгода, остаётся узким.</p>
+    <p>Это не скромность, а несущая конструкция. Будь разрыв как в обычной MMO, поход с полной
+      потерей вещей стал бы бессмысленным с обеих сторон: новичку внизу ничего не светило бы,
+      а ветерану нечего было бы бояться. А так — новичку есть что поймать, ветерану есть что
+      потерять, и встреча в темноте остаётся разговором на равных.</p>
+    <p>И второе: вход всегда открыт. Люк стоит прямо на городской площади, а начальный набор
+      выдают бесплатно. Потерявший всё спускается снова через минуту — неудача не должна
+      закрывать игру.</p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Как это играется</p>
+    <h2>Бой, в котором видно чужое намерение</h2>
+    <p>Удар — не мгновенная вспышка, а движение с замахом. Замах видно, и в этом весь бой:
+      противник успевает прочитать занос и решить — отойти, подставить щит или перебить своим
+      быстрым ударом. Тяжёлый удар бьёт крепче, но и читается заметно раньше.</p>
+    <p>Силы конечны. Бег, удары, блок и рывок тратят дыхание, и оно возвращается только
+      в паузе. Держать щит вечно нельзя, убежать от всего нельзя, а тот, кто выложился
+      досуха, какое-то время едва переставляет ноги — и это самое уязвимое, чем можно быть.</p>
+    <p>Защищаться можно двумя способами, и они противоположны. Можно стоять под ударами
+      за щитом, и чем больше стоишь, тем крепче держишь. Можно не попадать под них вовсе —
+      уходить рывком, и чем чаще уходишь, тем короче откат и дешевле бросок. Щитовик и ловкач
+      платят одну и ту же цену разными монетами.</p>
+    <p>Лук в руке превращает удар в выстрел, и стрела тратится в момент выстрела, а не при
+      попадании — промах обязан чего-то стоить. Урон падает с расстоянием: на пределе лук
+      только щиплет. Заклинания летят настоящим телом, а не мгновенным лучом: от быстрого
+      сгустка можно отойти, а долгое заклинание наказывает за неподвижность.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Как растёт персонаж</p>
+    <h2>Две дорожки: одна учит сама, вторую выбираешь ты</h2>
+    <p><b>Навыки растут от дела.</b> Бьёшь мечом — растёт клинок, стреляешь — стрельба,
+      колдуешь — магия. Какой именно навык растёт, решает вещь в руке, а не выбранный когда-то
+      класс: взял кирку — качается дробящее. Промах ничему не учит, иначе выгодно было бы
+      колотить воздух.</p>
+    <p>Защита учится тем же способом. Блок растёт от удара, действительно принятого щитом.
+      А уклонение — не от самого рывка: рывок только открывает окно, и опыт приходит, если
+      за это время ты достал врага. Уйти от настоящего удара и наказать за него — умение;
+      прыгать в сторону рядом с крысой — привычка жать кнопку.</p>
+    <p><b>Вторая дорожка — только за победы.</b> За них копится опыт персонажа, из него выходят
+      очки, и каждое очко ты вкладываешь сам: в жизнь, в дыхание или в ману. Навык — это умение,
+      выбирать там нечего. Очко — это выбор, каким ты хочешь быть, и он должен быть редким,
+      чтобы что-то значить.</p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Мир наверху</p>
+    <h2>Три народа, три ремесла и повод договариваться</h2>
+    <p>Раса — это тело и руки, класс — подготовка, и выбираются они независимо. Простые вещи
+      делает кто угодно и где угодно, но выше начинается расовое ремесло: чужой рецепт
+      прочесть нельзя.</p>
+
+    <div class="craft">
+      <div><b>Человек</b><span>дерево, кожа и ткань, луки</span></div>
+      <div><b>Дворф</b><span>металл: оружие и броня</span></div>
+      <div><b>Эльф</b><span>зелья и то, что усиливает</span></div>
+    </div>
+
+    <p>Начинаешь с пустыми руками: ни топора, ни кирки. Сухая ветка, расколотый камень
+      и волокно с куста берутся голыми руками — из них вяжется первый инструмент, и уже он
+      открывает дерево, руду и травы. Инструмент при этом нужен <em>в руке</em>, а не в рюкзаке:
+      рука занята киркой, а не мечом, и встреча с волком по дороге к жиле становится решением.</p>
+    <p>Над городом ходит солнце, и ночь наступает у всех одновременно. К темноте зажигаются
+      уличные огни и окна — и ночью за воротами становится по-настоящему неуютно. А в самом
+      городе драться нельзя: это единственное место, где можно стоять спиной к человеку.</p>
+    <p>За воротами можно. Кто первым поднял руку на мирного — виден всем, и его можно бить
+      без последствий; кто убивает мирных — виден ещё дальше и платит дольше. Убитое зверьё
+      эту вину понемногу замаливает. Внизу все эти правила отключаются разом.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Как мы это видим</p>
+    <h2>Концепты</h2>
+    <p>Это не скриншоты игры, а то, к чему она идёт: силуэты, палитра и настроение, по которым
+      делается всё остальное.</p>
+
+    <div class="gallery">
+      <figure>
+        <img src="arts/delve-lineup.webp" alt="Шесть искателей приключений в подземном коридоре при свете факелов" loading="lazy">
+        <figcaption><b>С этого всё началось.</b> Тот самый арт из заглавия, целиком.
+          Камень, факелы и люди, пришедшие сюда каждый за своим: подземелье тёмное
+          и тесное, а свет — тёплый, редкий и всегда чей-то.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="arts/classes-detail.webp" alt="Шесть классов персонажей: рыцарь, разбойник, маг, варвар, некромант, культист" loading="lazy">
+        <figcaption><b>Силуэты.</b> Первое, что решается про персонажа, — узнаётся ли он
+          со спины и в темноте. Рыцарь, разбойник, маг, варвар, некромант, культист: разная
+          осанка, разная ширина плеч, разное оружие в руках.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="arts/classes-blockout.webp" alt="Те же шесть классов в виде грубых низкополигональных болванок" loading="lazy">
+        <figcaption><b>Те же шестеро блокаутом.</b> Так это выглядит на первом шаге —
+          грубые объёмы без деталей. Если силуэт читается уже здесь, значит он выдержит
+          и мглу подземелья; если нет — деталями его не спасти.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="arts/dwarf-sheet.webp" alt="Разворот дворфа: вид спереди, сбоку и сзади, а также голова, пояс и сапоги" loading="lazy">
+        <figcaption><b>Разворот дворфа.</b> Лист, по которому персонажа лепят: три вида
+          и крупные планы того, что видно вблизи, — лицо, пряжка, сапоги. Дворф широкий
+          и приземистый не для красоты: он должен читаться как дворф с любого ракурса.</figcaption>
+      </figure>
+
+      <div class="pair">
+        <figure>
+          <img src="arts/dwarf-blockout.webp" alt="Грубая низкополигональная болванка персонажа" loading="lazy">
+          <figcaption><b>Шаг первый.</b> Пропорции и объёмы.</figcaption>
+        </figure>
+        <figure>
+          <img src="arts/dwarf-model.webp" alt="Та же модель персонажа с текстурами и проработанными деталями" loading="lazy">
+          <figcaption><b>Шаг второй.</b> Текстуры и детали — и тот же силуэт.</figcaption>
+        </figure>
+      </div>
+
+      <div class="pair">
+        <figure>
+          <img src="arts/human-base.webp" alt="Базовая болванка человеческого тела в позе покоя" loading="lazy">
+          <figcaption><b>Человеческая база.</b> Заготовка тела, на которую надевается
+            всё остальное.</figcaption>
+        </figure>
+        <figure>
+          <img src="arts/elf-base.webp" alt="Базовая болванка эльфийского тела в позе покоя" loading="lazy">
+          <figcaption><b>Эльфийская база.</b> Выше, тоньше, другие уши — раса читается
+            уже в пропорциях.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Пайплайн</p>
+    <h2>Как это делается</h2>
+    <p>Порядок один и для персонажа, и для мира: сперва грубо и играбельно, потом красиво.
+      Коробки в игре появляются раньше моделей, и пока картинка не поспела, играть уже можно.</p>
+
+    <div class="steps">
+      <div><b>Концепт</b><span>силуэт, палитра, настроение. Решается, узнаётся ли вещь в темноте</span></div>
+      <div><b>Блокаут</b><span>грубые объёмы прямо в игре: размеры, столкновения, темп боя</span></div>
+      <div><b>Модель</b><span>сетка, текстуры, скелет. Силуэт с концепта остаётся неизменным</span></div>
+      <div><b>В игре</b><span>сборочный скрипт готовит файл, анимации переносятся на наш скелет</span></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <h3>Только свободные ассеты</h3>
+        <p>Всё, что не нарисовано своими руками, берётся из источников с лицензией CC0 —
+          то есть без обязательств и без чужих прав в проекте. Купленные паки из магазинов
+          движков не годятся: их нельзя раздавать вместе с игрой.</p>
+      </div>
+      <div class="rule">
+        <h3>Один код на сервер и клиент</h3>
+        <p>Движение, столкновения и генерация мира написаны один раз и выполняются с обеих
+          сторон. Сервер решает всё — клиент только предугадывает своё движение, чтобы оно
+          не ждало ответа по сети. Разъехаться им нельзя: считают они по одним и тем же числам.</p>
+      </div>
+      <div class="rule">
+        <h3>Проверки, которые играют сами</h3>
+        <p>Кроме обычных тестов есть роботы: они заходят на живой сервер, ходят ногами,
+          рубят деревья, вскрывают сундуки, спускаются на второй этаж и умирают от нежити.
+          Что видно только глазами — картинку, свет, дрожание — смотрит человек, и это
+          записано честно: такие вещи тестами не ловятся.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Статус</p>
+    <h2>Где мы сейчас</h2>
+    <p class="lead">Играбельно целиком: можно зарегистрироваться, выйти в мир, добыть,
+      сделать, подраться, спуститься и не вернуться. Шесть вех из семи закрыты.</p>
+
+    <div class="stage">
+      <div>
+        <h3><i></i>Готово</h3>
+        <ul>
+          <li>Сеть, предсказание движения, аккаунты и сохранение</li>
+          <li>Город, дикие земли, смена дня и ночи, огонь и свет в окнах</li>
+          <li>Бой с фазами, дыханием, блоком и рывком</li>
+          <li>Противники с погоней, привязкой к логову и реакцией на удар</li>
+          <li>Заклинания и лук</li>
+          <li>Навыки и вторая дорожка роста</li>
+          <li>Вещи, вес, ремесло по расам, добыча ресурсов</li>
+          <li>Казна и обмен между игроками</li>
+          <li>PvP с зонами и репутацией</li>
+          <li>Подземелья целиком: этажи, темнота, сундуки, босс, отряд</li>
+        </ul>
+      </div>
+      <div class="doing">
+        <h3><i></i>Идёт сейчас</h3>
+        <ul>
+          <li>Замена блокаута на настоящие модели</li>
+          <li>Персонажи: концепты, болванки, скелеты, анимации</li>
+          <li>Шлифовка того, что видно только глазами</li>
+        </ul>
+      </div>
+      <div class="later">
+        <h3><i></i>Впереди</h3>
+        <ul>
+          <li>Звук — шаги, оружие, эмбиент подземелья</li>
+          <li>Погода и времена года</li>
+          <li>Вторая наземная зона</li>
+          <li>Личные сообщения</li>
+          <li>Сервер в сети: домен, хостинг, приглашения</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Дорога</p>
+    <h2>Вехи</h2>
+
+    <div class="miles">
+      <div class="mile"><b>1</b><strong>Фундамент</strong><span>мир, движение от первого лица, столкновения</span></div>
+      <div class="mile"><b>2</b><strong>Мультиплеер</strong><span>сервер, аккаунты, база, несколько игроков в одном мире</span></div>
+      <div class="mile"><b>3</b><strong>Бой и противники</strong><span>удары, дыхание, блок, рывок, звери и нежить</span></div>
+      <div class="mile"><b>4</b><strong>Вещи и ремесло</strong><span>сетка, вес, ресурсы, рецепты, расовое ремесло</span></div>
+      <div class="mile"><b>5</b><strong>PvP</strong><span>безопасный город, флаги, репутация, обмен и казна</span></div>
+      <div class="mile"><b>6</b><strong>Подземелья</strong><span>главная фишка: этажи, темнота, вынос добычи, босс, отряд</span></div>
+      <div class="mile now"><b>7</b><strong>Атмосфера и содержание</strong><span>модели вместо коробок, звук, погода, вторая зона, сервер в сети</span></div>
+      <div class="mile next"><b>·</b><strong>Дальше</strong><span>кланы и войны, аукцион, рейды — осознанно отложено, чтобы не размазать главное</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Grimhold — учебно-боевой проект одного человека и его подмастерья. Пишется
+      на TypeScript и three.js, работает в браузере без установки.</p>
+    <p>Страница обновляется по ходу разработки.</p>
+  </div>
+</footer>
+
+</body>
+</html>
